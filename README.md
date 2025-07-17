@@ -14,7 +14,6 @@
 │
 ├── src/
 │   ├── main.py
-│   ├── queries.py
 │   └── util.py
 │
 ```

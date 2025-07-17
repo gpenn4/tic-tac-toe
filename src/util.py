@@ -1,5 +1,6 @@
 import random
 from rich.console import Console
+from rich.prompt import Prompt
 
 console = Console()
 conv = {1:(0,0), 2:(0,1), 3:(0,2), 4:(1,0), 5:(1,1), 6:(1,2), 7:(2,0), 8:(2,1), 9:(2,2)}
@@ -33,19 +34,19 @@ def enter_move(board) -> list:
     :param board: A 2D list representing the Tic Tac Toe board.
     :return: The updated board after the user's move.
     '''
-    # user_move = int(input("Please enter your move: "))
 
     invalid_move = True
     while invalid_move:
         try:
-            user_move = int(input("Please enter your move: "))
+
+            user_move = int(Prompt.ask("Please enter your move: ")) # = int(input("Please enter your move: "))
             if isinstance(board[conv.get(user_move)[0]][conv.get(user_move)[1]], int):
                 board[conv.get(user_move)[0]][conv.get(user_move)[1]] = 'O'
                 display_board(board)
                 invalid_move = False
             else:
-                user_move = int(input("Please enter a valid move: "))
-        except ValueError:
+                user_move = int(Prompt.ask("Please enter a valid move: "))
+        except (ValueError, TypeError):
             console.print("Invalid input. Please enter a number between 1 and 9.", style="red")
             continue
     return board
@@ -101,11 +102,6 @@ def draw_move(board) -> list:
     :param board: A 2D list representing the Tic Tac Toe board.
     :return: The updated board after the computer's move.
     '''
-    # free_fields = make_list_of_free_fields(board)
-    # if free_fields:
-    #     row, col = random.choice(free_fields)
-    #     board[row][col] = 'X'
-    #     display_board(board)
 
     free_fields = []
     for x in board:
